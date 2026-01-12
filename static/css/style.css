@@ -255,6 +255,10 @@ section {
     position: relative;
 }
 
+section.advantages {
+    padding: 0;
+}
+
 .section-title {
     font-size: 3rem;
     font-weight: 200;
@@ -271,21 +275,33 @@ section {
     overflow: hidden;
 }
 
-.countries::before {
-    content: '';
+.countries .section-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920') center/cover;
-    opacity: 0.15;
+    object-fit: cover;
     z-index: 0;
+}
+
+.countries .section-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
 }
 
 .countries .container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+}
+
+.countries .section-title {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .countries-grid {
@@ -296,11 +312,12 @@ section {
 }
 
 .country-card {
-    background: rgba(42, 42, 42, 0.6);
-    backdrop-filter: blur(10px);
+    background: rgba(42, 42, 42, 0.7);
+    backdrop-filter: blur(15px);
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .country-card:hover {
@@ -351,21 +368,34 @@ section {
     overflow: hidden;
 }
 
-.featured-cars::before {
-    content: '';
+.featured-cars .section-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=1920') center/cover;
-    opacity: 0.15;
+    object-fit: cover;
     z-index: 0;
+    pointer-events: none;
+}
+
+.featured-cars .section-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
 }
 
 .featured-cars .container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+}
+
+.featured-cars .section-title {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .cars-grid {
@@ -515,23 +545,45 @@ section {
     background: var(--bg-section);
     position: relative;
     overflow: hidden;
+    margin-bottom: 0;
+    padding: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.advantages::before {
-    content: '';
+.advantages .container {
+    padding: 6rem 0;
+    position: relative;
+    z-index: 2;
+    min-height: 100%;
+}
+
+.advantages .section-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920') center/cover;
-    opacity: 0.1;
+    object-fit: cover;
     z-index: 0;
+    pointer-events: none;
 }
 
-.advantages .container {
-    position: relative;
+.advantages .section-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1;
+}
+
+.advantages .section-title {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .advantages-grid {
@@ -543,13 +595,14 @@ section {
 .advantage-item {
     text-align: center;
     padding: 2.5rem 2rem;
-    background: rgba(42, 42, 42, 0.4);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
+    background: rgba(42, 42, 42, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .advantage-item::before {
@@ -604,9 +657,12 @@ section {
     background: var(--brown-footer);
     color: var(--white);
     padding: 4rem 0 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: none;
+    border-bottom: none;
     position: relative;
-    z-index: 10;
+    z-index: 100;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .footer::before,
