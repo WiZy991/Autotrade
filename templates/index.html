@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/drone_follows_a_sports_car_from_right_.mp4' %}" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Импорт автомобилей из Японии, Кореи и Китая</h1>
+        <p class="hero-subtitle">Качественные автомобили по выгодным ценам</p>
+        <a href="{% url 'catalog' %}" class="btn btn-primary">Посмотреть каталог</a>
+    </div>
+</section>
+
+<section class="countries">
+    <div class="container">
+        <h2 class="section-title">Выберите страну</h2>
+        <div class="countries-grid">
+            {% for country in countries %}
+            <div class="country-card" data-country="{{ country.code }}">
+                <div class="country-image">
+                    <span class="country-flag">{{ country.flag_emoji }}</span>
+                </div>
+                <div class="country-content">
+                    <h3>{{ country.name }}</h3>
+                    <p>{{ country.description|default:"Автомобили высокого качества" }}</p>
+                    <a href="{% url 'country' country.code %}" class="btn btn-outline">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="featured-cars">
+    <div class="container">
+        <h2 class="section-title">Рекомендуемые автомобили</h2>
+        <div class="cars-grid">
+            {% for car in cars %}
+            <div class="car-card">
+                <div class="car-image">
+                    {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                    {% else %}
+                    <img src="https://via.placeholder.com/400x300?text={{ car.brand }}+{{ car.model }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                    {% endif %}
+                    <div class="car-badge">{{ car.country.name }}</div>
+                </div>
+                <div class="car-info">
+                    <h3>{{ car.brand }} {{ car.model }}</h3>
+                    <p class="car-year">Год: {{ car.year }}</p>
+                    <p class="car-price">{{ car.price|floatformat:0 }} ₽</p>
+                    <a href="{% url 'car_detail' car.pk %}" class="btn btn-primary btn-small">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="{% url 'catalog' %}" class="btn btn-outline">Посмотреть весь каталог</a>
+        </div>
+    </div>
+</section>
+
+<section class="advantages">
+    <div class="container">
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <div class="advantages-grid">
+            <div class="advantage-item">
+                <h3>Широкий выбор</h3>
+                <p>Большой каталог автомобилей различных марок и моделей</p>
+            </div>
+            <div class="advantage-item">
+                <h3>Выгодные цены</h3>
+                <p>Прямые поставки без посредников</p>
+            </div>
+            <div class="advantage-item">
+                <h3>Гарантия качества</h3>
+                <p>Тщательная проверка каждого автомобиля</p>
+            </div>
+            <div class="advantage-item">
+                <h3>Быстрая доставка</h3>
+                <p>Оперативная обработка заказов и доставка</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

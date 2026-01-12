@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AutoTrade - Импорт автомобилей из Японии, Кореи и Китая{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="{% url 'index' %}">AutoTrade</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'catalog' %}">Каталог</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="flash-message flash-{{ message.tags }}">
+                        {{ message }}
+                        <span class="flash-close">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AutoTrade</h3>
+                    <p>Импорт автомобилей из Японии, Кореи и Китая</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Страны</h4>
+                    <ul>
+                        {% for country in countries|default:"" %}
+                        <li><a href="{% url 'country' country.code %}">{{ country.name }}</a></li>
+                        {% empty %}
+                        <li><a href="{% url 'country' 'japan' %}">Япония</a></li>
+                        <li><a href="{% url 'country' 'korea' %}">Корея</a></li>
+                        <li><a href="{% url 'country' 'china' %}">Китай</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="{% url 'about' %}">О нас</a></li>
+                        <li><a href="{% url 'catalog' %}">Каталог</a></li>
+                        <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+                    <p>Email: info@autotrade.ru</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AutoTrade. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/gallery.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

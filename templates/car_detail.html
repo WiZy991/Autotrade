@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ car.brand }} {{ car.model }} - AutoTrade{% endblock %}
+
+{% block content %}
+<section class="car-detail">
+    <div class="container">
+        <div class="car-detail-header">
+            <div class="car-detail-left">
+                <div class="car-detail-image">
+                    {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="main-car-image">
+                    {% else %}
+                    <img src="https://via.placeholder.com/800x600?text={{ car.brand }}+{{ car.model }}" alt="{{ car.brand }} {{ car.model }}" class="main-car-image">
+                    {% endif %}
+                </div>
+                {% if car.images.all %}
+                <div class="car-detail-gallery">
+                    <h2 style="color: var(--white); font-size: 1.5rem; font-weight: 300; margin-bottom: 1rem; margin-top: 1rem; letter-spacing: 0.5px; text-transform: uppercase;">Галерея</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                        {% for image in car.images.all %}
+                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:car.brand }}" class="gallery-thumbnail" style="width: 100%; height: 200px; object-fit: contain; border: 1px solid var(--border); background: var(--bg-card);">
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="car-detail-right">
+                <div class="car-detail-info">
+                    <h1>{{ car.brand }} {{ car.model }}</h1>
+                    <p class="car-detail-country">Страна: {{ country.name }}</p>
+                    {% if car.car_type %}
+                    <p class="car-detail-country">Тип кузова: {{ car.car_type.name }}</p>
+                    {% endif %}
+                    <p class="car-detail-price" style="font-size: 2rem; font-weight: 300; color: var(--white); margin: 1.5rem 0;">
+                        {{ car.price|floatformat:0 }} ₽
+                    </p>
+                    <div class="car-detail-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Марка:</span>
+                            <span class="spec-value">{{ car.brand }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Модель:</span>
+                            <span class="spec-value">{{ car.model }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Год выпуска:</span>
+                            <span class="spec-value">{{ car.year }}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Страна:</span>
+                            <span class="spec-value">{{ country.name }}</span>
+                        </div>
+                        {% if car.car_type %}
+                        <div class="spec-item">
+                            <span class="spec-label">Тип кузова:</span>
+                            <span class="spec-value">{{ car.car_type.name }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'contact' %}" class="btn btn-primary" style="width: 100%; text-align: center; margin-top: 1.5rem;">
+                        Связаться с нами
+                    </a>
+                </div>
+                <div class="car-detail-description">
+                    <h2>Описание</h2>
+                    {% if car.description %}
+                    <p style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem; white-space: pre-line;">
+                        {{ car.description }}
+                    </p>
+                    {% else %}
+                    <p style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
+                        {{ car.brand }} {{ car.model }} {{ car.year }} года выпуска из {{ country.name }}. 
+                        Это отличный выбор для тех, кто ценит качество, надежность и современные технологии. 
+                        Автомобиль прошел тщательную проверку и готов к использованию.
+                    </p>
+                    <p style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem; margin-top: 1rem;">
+                        Для получения дополнительной информации о данном автомобиле, пожалуйста, свяжитесь с нами 
+                        через форму обратной связи или по телефону. Наши специалисты ответят на все ваши вопросы 
+                        и помогут с оформлением заказа.
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="car-detail-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'country' car.country.code %}" class="btn btn-outline dark">
+                    ← Вернуться к {{ country.name }}
+                </a>
+                <a href="{% url 'catalog' %}" class="btn btn-outline dark">
+                    Посмотреть весь каталог
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ country.name }} - AutoTrade{% endblock %}
+
+{% block content %}
+<div class="country-page-wrapper" data-country="{{ country_code }}">
+<section class="country-hero-simple" data-country="{{ country_code }}" 
+    {% if country_code == 'japan' %}
+        style="background-image: url('{% static 'Photos/2580858.jpeg' %}');"
+    {% elif country_code == 'korea' %}
+        style="background-image: url('{% static 'Photos/i (3).webp' %}');"
+    {% elif country_code == 'china' %}
+        style="background-image: url('{% static 'Photos/e8fcbfa7f937935ba0dc77149d06d415.webp' %}');"
+    {% endif %}>
+    <div class="container">
+        <div class="country-hero-content-simple">
+            <h1 class="country-title-simple">{{ country.name }}</h1>
+            <p class="country-description-simple">{{ country.description|default:"Автомобили высокого качества" }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="country-content-simple" data-country="{{ country_code }}"
+    {% if country_code == 'japan' %}
+        style="background-image: url('{% static 'Photos/2580858.jpeg' %}');"
+    {% elif country_code == 'korea' %}
+        style="background-image: url('{% static 'Photos/i (3).webp' %}');"
+    {% elif country_code == 'china' %}
+        style="background-image: url('{% static 'Photos/e8fcbfa7f937935ba0dc77149d06d415.webp' %}');"
+    {% endif %}>
+    <div class="country-content-overlay"></div>
+    <div class="container">
+        {% if cars %}
+            <div class="cars-grid country-cars-grid">
+                {% for car in cars %}
+                <div class="car-card">
+                    <div class="car-image">
+                        {% if car.image %}
+                        <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                        {% else %}
+                        <img src="https://via.placeholder.com/400x300?text={{ car.brand }}+{{ car.model }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                        {% endif %}
+                        <div class="car-badge">{{ country.name }}</div>
+                        {% if car.car_type %}
+                        <div class="car-badge" style="top: 3.5rem; background: rgba(255, 255, 255, 0.8);">{{ car.car_type.name }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="car-info">
+                        <h3>{{ car.brand }} {{ car.model }}</h3>
+                        <p class="car-year">Год: {{ car.year }}</p>
+                        <p class="car-price">{{ car.price|floatformat:0 }} ₽</p>
+                        <a href="{% url 'car_detail' car.pk %}" class="btn btn-primary btn-small">Подробнее</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-cars-message">
+                <p>Автомобили скоро появятся в каталоге</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="cta-section-simple" data-country="{{ country_code }}"
+    {% if country_code == 'japan' %}
+        style="background-image: url('{% static 'Photos/2580858.jpeg' %}');"
+    {% elif country_code == 'korea' %}
+        style="background-image: url('{% static 'Photos/i (3).webp' %}');"
+    {% elif country_code == 'china' %}
+        style="background-image: url('{% static 'Photos/e8fcbfa7f937935ba0dc77149d06d415.webp' %}');"
+    {% endif %}>
+    <div class="cta-section-overlay"></div>
+    <div class="container">
+        <div class="cta-content-simple">
+            <h2>Интересует автомобиль из {{ country.name }}?</h2>
+            <p>Свяжитесь с нами, и мы подберем для вас идеальный вариант</p>
+            <a href="{% url 'contact' %}" class="btn btn-primary">Связаться с нами</a>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}

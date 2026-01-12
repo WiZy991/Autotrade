@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}О нас - AutoTrade{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="container">
+        <h1 class="section-title">О компании AutoTrade</h1>
+        
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--white);">Наша миссия</h2>
+                <p style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
+                    AutoTrade - это компания, специализирующаяся на импорте качественных автомобилей из Японии, 
+                    Кореи и Китая. Мы работаем напрямую с поставщиками, что позволяет нам предлагать 
+                    нашим клиентам лучшие цены и гарантировать качество каждого автомобиля.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--white);">Почему выбирают нас</h2>
+                <div style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem; color: var(--white);">Опыт и надежность</h3>
+                        <p style="line-height: 1.8; color: var(--text-light);">
+                            Мы работаем на рынке импорта автомобилей уже много лет и зарекомендовали себя 
+                            как надежный партнер для наших клиентов.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem; color: var(--white);">Прямые поставки</h3>
+                        <p style="line-height: 1.8; color: var(--text-light);">
+                            Работаем напрямую с поставщиками из Японии, Кореи и Китая, что позволяет 
+                            избежать лишних наценок и предложить лучшие цены.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem; color: var(--white);">Контроль качества</h3>
+                        <p style="line-height: 1.8; color: var(--text-light);">
+                            Каждый автомобиль проходит тщательную проверку перед отправкой, чтобы 
+                            гарантировать его качество и соответствие заявленным характеристикам.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem; color: var(--white);">Индивидуальный подход</h3>
+                        <p style="line-height: 1.8; color: var(--text-light);">
+                            Мы подходим к каждому клиенту индивидуально, помогая подобрать автомобиль, 
+                            который полностью соответствует его потребностям и бюджету.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--white);">Наши услуги</h2>
+                <ul style="line-height: 2; color: var(--text-light); font-size: 1.1rem; padding-left: 1.5rem;">
+                    <li>Подбор автомобиля по вашим требованиям</li>
+                    <li>Импорт автомобилей из Японии, Кореи и Китая</li>
+                    <li>Оформление всех необходимых документов</li>
+                    <li>Доставка автомобилей</li>
+                    <li>Консультации по выбору и оформлению</li>
+                </ul>
+            </div>
+
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="{% url 'contact' %}" class="btn btn-primary">Связаться с нами</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

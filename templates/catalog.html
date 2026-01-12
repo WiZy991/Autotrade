@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Каталог автомобилей - AutoTrade{% endblock %}
+
+{% block content %}
+<section class="catalog-page">
+    <div class="container">
+        <h1 class="section-title">Каталог автомобилей</h1>
+        
+        <div class="catalog-filters">
+            <a href="{% url 'catalog' %}" class="filter-btn {% if not selected_country and not selected_type %}active{% endif %}">Все</a>
+            {% for country in countries %}
+            <a href="{% url 'catalog' %}?country={{ country.code }}" class="filter-btn {% if selected_country == country.code %}active{% endif %}">{{ country.name }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="catalog-filters" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+            <span style="color: var(--text-light); margin-right: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px;">Тип кузова:</span>
+            {% for car_type in car_types %}
+            <a href="{% url 'catalog' %}?type={{ car_type.slug }}{% if selected_country %}&country={{ selected_country }}{% endif %}" class="filter-btn {% if selected_type == car_type.slug %}active{% endif %}">{{ car_type.name }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="cars-grid" id="cars-grid">
+            {% for car in cars %}
+            <div class="car-card" data-country="{{ car.country.code }}">
+                <div class="car-image">
+                    {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                    {% else %}
+                    <img src="https://via.placeholder.com/400x300?text={{ car.brand }}+{{ car.model }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                    {% endif %}
+                    <div class="car-badge">{{ car.country.name }}</div>
+                    {% if car.car_type %}
+                    <div class="car-badge" style="top: 3.5rem; background: rgba(255, 255, 255, 0.8);">{{ car.car_type.name }}</div>
+                    {% endif %}
+                </div>
+                <div class="car-info">
+                    <h3>{{ car.brand }} {{ car.model }}</h3>
+                    <p class="car-year">Год: {{ car.year }}</p>
+                    <p class="car-price">{{ car.price|floatformat:0 }} ₽</p>
+                    <a href="{% url 'car_detail' car.pk %}" class="btn btn-primary btn-small">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if not cars %}
+        <div class="text-center" style="padding: 3rem 0;">
+            <p style="font-size: 1.2rem; color: var(--text-light);">Каталог пуст</p>
+        </div>
+        {% endif %}
+
+        {% if has_more %}
+        <div class="load-more-container" style="text-align: center; margin-top: 3rem;">
+            <button id="load-more-btn" class="btn btn-primary btn-large" data-page="2" 
+                    data-country="{{ selected_country|default:'' }}" 
+                    data-type="{{ selected_type|default:'' }}"
+                    data-search="{{ search_query|default:'' }}">
+                Показать ещё
+            </button>
+            <div id="loading-spinner" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/catalog.js' %}"></script>
+{% endblock %}
